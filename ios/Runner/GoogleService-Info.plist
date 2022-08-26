@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>217995668835-o6tkfrjaddvmr0m4oet6sgmv1g2t14s9.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.217995668835-o6tkfrjaddvmr0m4oet6sgmv1g2t14s9</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDdPdIwwzUJj_xrafYECuT-VuGA8nJxkcI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>217995668835</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.agrosmartListaProdutosTesteDanielAraujo</string>
+	<key>PROJECT_ID</key>
+	<string>agrosmart-teste-daniel-araujo</string>
+	<key>STORAGE_BUCKET</key>
+	<string>agrosmart-teste-daniel-araujo.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:217995668835:ios:2789738703d406ad8af756</string>
+</dict>
+</plist>

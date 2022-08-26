@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "217995668835",
+    "project_id": "agrosmart-teste-daniel-araujo",
+    "storage_bucket": "agrosmart-teste-daniel-araujo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217995668835:android:3131b64c9bca9d2f8af756",
+        "android_client_info": {
+          "package_name": "com.example.agrosmart_lista_produtos_teste_daniel_araujo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217995668835-vjfmp7cscufa9g18p57gvrnilodkbesn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlwvQPh-MZNCZLYk3NWkEgcoz7dPmmVjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217995668835-vjfmp7cscufa9g18p57gvrnilodkbesn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "217995668835-o6tkfrjaddvmr0m4oet6sgmv1g2t14s9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.agrosmartListaProdutosTesteDanielAraujo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
