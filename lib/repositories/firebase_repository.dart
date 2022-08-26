@@ -32,11 +32,15 @@ class FireStorageHandler extends ChangeNotifier {
       List<Produto> listaProdutosAgrosmart) async {
     try {
       for (final produto in listaProdutosAgrosmart) {
-        if (!_listaProdutosFirestore
-            .any((atual) => atual.filename == produto.filename)) {
-          _listaProdutosFirestore.add(produto);
-        }
-        ;
+        _firestorageCollectionAgroSmartProdutos.doc(produto.filename).set({
+          "title": produto.title,
+          "created": DateTime.now(),
+          "type": produto.type,
+          "description": produto.description,
+          "filename": produto.filename,
+          "price": produto.price,
+          "rating": produto.rating,
+        });
       }
     } catch (e) {
       print(e);
@@ -54,6 +58,7 @@ class FireStorageHandler extends ChangeNotifier {
     agroSmartProductsFromGet.docs.forEach((doc) {
       Produto produto = ProdutosAgroSmart.MappedListaProdutos.firstWhere(
           (produto) => produto.filename == doc.get("filename"));
+
       _listaProdutosFirestore.add(produto);
 
       notifyListeners();

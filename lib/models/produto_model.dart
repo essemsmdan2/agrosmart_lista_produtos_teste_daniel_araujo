@@ -6,11 +6,12 @@ class Produto {
   String type;
   int rating;
   double price;
-  //dynamic Created (Data do upload do produto a nova base de datos);
+  dynamic created;
 
   Produto(
       {required this.filename,
       required this.description,
+      required this.created,
       required this.price,
       required this.rating,
       required this.title,
