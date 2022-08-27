@@ -5,21 +5,57 @@ import 'package:flutter/material.dart';
 import '../models/produto_model.dart';
 
 class FireStorageHandler extends ChangeNotifier {
+  List<Produto> _listaProdutosFirestore = [];
+  List<Produto> get listaProdutosFirestore => _listaProdutosFirestore;
+
   FireStorageHandler() {
-    _startLista();
-  }
-  _startLista() async {
-    _listaProdutosFirestore = await getUpdatedFireStorageProducts;
+    _startUpdateProdutosLoja();
   }
 
-  //instancia Firestore
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  // instancia Firestore até a collection
   CollectionReference _firestorageCollectionAgroSmartProdutos =
       FirebaseFirestore.instance.collection('agrosmart_produtos');
 
-  remove(Produto produto) async {
+  _startUpdateProdutosLoja() async {
+    // getUpdatedFireStorageProducts();
+    _firestorageCollectionAgroSmartProdutos.snapshots().listen((snapshot) {
+      for (var change in snapshot.docChanges) {
+        Map<String, dynamic> map = change.doc.data()! as Map<String, dynamic>;
+        Produto produto = Produto.fromMap(map);
+        if (change.type == DocumentChangeType.added) {
+          _listaProdutosFirestore.add(produto);
+        } else if (change.type == DocumentChangeType.modified) {
+          int index = _listaProdutosFirestore
+              .indexWhere((element) => element.filename == produto.filename);
+          if (index < 0) {
+            _listaProdutosFirestore.add(produto);
+          } else {
+            _listaProdutosFirestore[index] = produto;
+          }
+        } else if (change.type == DocumentChangeType.removed) {
+          _listaProdutosFirestore
+              .removeWhere((element) => element.filename == produto.filename);
+        }
+      }
+      notifyListeners();
+    });
+  }
+
+  Future<void> enviaProdutosParaBancoFirebase(
+      List<Produto> listaProdutosAgrosmart) async {
+    try {
+      for (final produto in listaProdutosAgrosmart) {
+        _firestorageCollectionAgroSmartProdutos
+            .doc(produto.filename)
+            .set(produto.toMap());
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  removeProduto(Produto produto) async {
     await _firestorageCollectionAgroSmartProdutos
         .doc(produto.filename)
         .delete();
@@ -27,43 +63,13 @@ class FireStorageHandler extends ChangeNotifier {
     notifyListeners();
   }
 
-  //envia produtos para o banco de dados da loja
-  Future<void> EnviaProdutosParaBancoFirebase(
-      List<Produto> listaProdutosAgrosmart) async {
-    try {
-      for (final produto in listaProdutosAgrosmart) {
-        _firestorageCollectionAgroSmartProdutos.doc(produto.filename).set({
-          "title": produto.title,
-          "created": DateTime.now(),
-          "type": produto.type,
-          "description": produto.description,
-          "filename": produto.filename,
-          "price": produto.price,
-          "rating": produto.rating,
-        });
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  List<Produto> _listaProdutosFirestore = [];
-
-  List<Produto> get listaProdutosFirestore => _listaProdutosFirestore;
-
-  // retorna os produtos disponíveis na loja/banco de dados
-  Future<List<Produto>> get getUpdatedFireStorageProducts async {
-    final agroSmartProductsFromGet =
-        await _firestorageCollectionAgroSmartProdutos.get();
-    agroSmartProductsFromGet.docs.forEach((doc) {
-      Produto produto = ProdutosAgroSmart.MappedListaProdutos.firstWhere(
-          (produto) => produto.filename == doc.get("filename"));
-
-      _listaProdutosFirestore.add(produto);
-
-      notifyListeners();
-    });
-
-    return _listaProdutosFirestore;
+  atualizaValorProduto(
+      Produto produto, String title, String type, String price) async {
+    print(title);
+    await _firestorageCollectionAgroSmartProdutos
+        .doc(produto.filename)
+        .update({"title": title, "type": type, "price": int.parse(price)});
+    //await getUpdatedFireStorageProducts();
+    notifyListeners();
   }
 }

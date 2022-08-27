@@ -1,16 +1,9 @@
 import 'models/produto_model.dart';
 
 class ProdutosAgroSmart {
-  static List<Produto> MappedListaProdutos = listaProdutosAgrosmart
-      .map((e) => Produto(
-          filename: e["filename"],
-          created: e["created"],
-          description: e["description"],
-          price: e["price"],
-          rating: e["rating"],
-          title: e["title"],
-          type: e["type"]))
-      .toList();
+  static List<Produto> MappedListaProdutos =
+      listaProdutosAgrosmart.map((e) => Produto.fromMap(e)).toList();
+
   static List listaProdutosAgrosmart = [
     {
       "title": "Brown eggs",

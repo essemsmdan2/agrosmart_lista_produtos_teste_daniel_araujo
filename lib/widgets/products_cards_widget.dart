@@ -1,14 +1,29 @@
+import 'package:agrosmart_lista_produtos_teste_daniel_araujo/screens/products_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
 import '../constants.dart';
-import '../repositories/firebase_repository.dart';
+import '../models/produto_model.dart';
 
-class ProductsCards extends StatelessWidget {
-  FireStorageHandler products;
-  int index;
-  ProductsCards({Key? key, required this.products, required this.index})
-      : super(key: key);
+class ProductCard extends StatefulWidget {
+  Produto produto;
+
+  ProductCard({Key? key, required this.produto}) : super(key: key);
+
+  @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
+  abrirDetalhes() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ProductsDetailsScreen(
+          produto: widget.produto,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +47,7 @@ class ProductsCards extends StatelessWidget {
                     image: DecorationImage(
                         fit: BoxFit.cover,
                         // ignore: prefer_interpolation_to_compose_strings
-                        image: AssetImage("images/" +
-                            products.listaProdutosFirestore[index].filename)),
+                        image: AssetImage("images/" + widget.produto.filename)),
                   ),
                 ),
                 const SizedBox(
@@ -57,7 +71,7 @@ class ProductsCards extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text(
-                                products.listaProdutosFirestore[index].title,
+                                widget.produto.title,
                                 style: kTextsInfo,
                               ),
                             ),
@@ -74,7 +88,7 @@ class ProductsCards extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text(
-                                products.listaProdutosFirestore[index].type,
+                                widget.produto.type,
                                 style: kTextsInfo,
                               ),
                             ),
@@ -97,9 +111,7 @@ class ProductsCards extends StatelessWidget {
                     ),
                     RatingBar.builder(
                       itemSize: 25,
-                      initialRating: products
-                          .listaProdutosFirestore[index].rating
-                          .toDouble(),
+                      initialRating: widget.produto.rating.toDouble(),
                       minRating: 1,
                       direction: Axis.horizontal,
                       allowHalfRating: false,
@@ -123,12 +135,17 @@ class ProductsCards extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Icon(
-                  Icons.more_horiz,
-                  size: 40,
+                GestureDetector(
+                  onTap: () {
+                    abrirDetalhes();
+                  },
+                  child: Icon(
+                    Icons.more_horiz,
+                    size: 40,
+                  ),
                 ),
                 Text(
-                  "R\$${products.listaProdutosFirestore[index].price}",
+                  "R\$${widget.produto.price}",
                   style: kTextsInfo.copyWith(
                       fontSize: 18,
                       color: Colors.black87,

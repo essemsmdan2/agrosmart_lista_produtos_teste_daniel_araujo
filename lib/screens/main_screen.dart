@@ -1,6 +1,7 @@
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/produtos_agrosmart.dart';
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/repositories/firebase_repository.dart';
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/constants.dart';
+import 'package:agrosmart_lista_produtos_teste_daniel_araujo/screens/products_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +18,9 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
+    /*  //envia somente 1 vez para o banco de dados a biblioteca de produtos da loja
     FireStorageHandler()
-        .EnviaProdutosParaBancoFirebase(ProdutosAgroSmart.MappedListaProdutos);
+        .EnviaProdutosParaBancoFirebase(ProdutosAgroSmart.MappedListaProdutos);*/
     super.initState();
   }
 
@@ -36,7 +38,9 @@ class _MainScreenState extends State<MainScreen> {
               : ListView.separated(
                   padding: const EdgeInsets.all(5),
                   itemBuilder: (context, int index) {
-                    return ProductsCards(products: products, index: index);
+                    return ProductCard(
+                      produto: products.listaProdutosFirestore[index],
+                    );
                   },
                   separatorBuilder: (_, __) => Divider(),
                   itemCount: products.listaProdutosFirestore.length);
