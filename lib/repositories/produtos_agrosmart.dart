@@ -1,4 +1,4 @@
-import 'models/produto_model.dart';
+import '../models/produto_model.dart';
 
 class ProdutosAgroSmart {
   static List<Produto> MappedListaProdutos =
@@ -162,8 +162,7 @@ class ProdutosAgroSmart {
     {
       "title": "Baked stuffed portabello mushrooms",
       "type": "bakery",
-      "description":
-          "Homemade baked stuffed portabello mushrooms with spinach and cheese",
+      "description": "Homemade baked stuffed portabello mushrooms with spinach and cheese",
       "filename": "15.jpg",
       "height": 600,
       "width": 400,
@@ -203,8 +202,7 @@ class ProdutosAgroSmart {
     {
       "title": "Caprese salad",
       "type": "vegetable",
-      "description":
-          "Homemade healthy caprese salad with tomato mozzarella and basil",
+      "description": "Homemade healthy caprese salad with tomato mozzarella and basil",
       "filename": "19.jpg",
       "height": 400,
       "width": 600,
@@ -296,8 +294,7 @@ class ProdutosAgroSmart {
     {
       "title": "Cuban sandwiche",
       "type": "bakery",
-      "description":
-          "Homemade traditional cuban sandwiches with ham pork and cheese",
+      "description": "Homemade traditional cuban sandwiches with ham pork and cheese",
       "filename": "28.jpg",
       "height": 450,
       "width": 300,
@@ -400,8 +397,7 @@ class ProdutosAgroSmart {
     {
       "title": "Smashed avocado",
       "type": "fruit",
-      "description":
-          "Vegan sandwiches with smashed avocado, tomatoes and radish. top view",
+      "description": "Vegan sandwiches with smashed avocado, tomatoes and radish. top view",
       "filename": "38.jpg",
       "height": 450,
       "width": 450,

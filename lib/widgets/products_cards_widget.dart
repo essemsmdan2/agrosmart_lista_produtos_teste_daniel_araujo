@@ -36,33 +36,29 @@ class _ProductCardState extends State<ProductCard> {
       ),
       child: Row(
         children: [
-          Expanded(
+          Flexible(
             child: Row(
               children: [
                 Container(
-                  width: 150,
-                  height: 150,
+                  width: 130,
+                  height: 130,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(5)),
                     image: DecorationImage(
-                        fit: BoxFit.cover,
-                        // ignore: prefer_interpolation_to_compose_strings
-                        image: AssetImage("images/" + widget.produto.filename)),
+                        fit: BoxFit.cover, image: AssetImage("images/" + widget.produto.filename)),
                   ),
                 ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      width: 125,
-                      height: 100,
-                      child: ListView(
-                        children: [
-                          Wrap(
+                SizedBox(width: 5),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 3.3,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 10,
+                        child: SingleChildScrollView(
+                          child: Wrap(
                             spacing: 5,
                             runSpacing: 5,
                             children: [
@@ -73,51 +69,52 @@ class _ProductCardState extends State<ProductCard> {
                               MyCustomChip(produtoParametro: widget.produto.description),
                             ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                    RatingBar.builder(
-                      itemSize: 25,
-                      initialRating: widget.produto.rating.toDouble(),
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: false,
-                      itemCount: 5,
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: Colors.blueAccent,
-                      ),
-                      onRatingUpdate: (rating) {
-                        print(rating);
-                      },
-                    )
-                  ],
+                      Flexible(
+                        child: FittedBox(
+                          child: RatingBar.builder(
+                            itemSize: 25,
+                            initialRating: widget.produto.rating.toDouble(),
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: false,
+                            itemCount: 5,
+                            itemBuilder: (context, _) => Icon(
+                              Icons.star,
+                              color: Colors.blueAccent,
+                            ),
+                            onRatingUpdate: (rating) {
+                              print(rating);
+                            },
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 5, bottom: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    abrirDetalhes();
-                  },
-                  child: Icon(
-                    Icons.more_horiz,
-                    size: 40,
-                  ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  abrirDetalhes();
+                },
+                child: Icon(
+                  Icons.more_horiz,
+                  size: 40,
                 ),
-                Text(
-                  "R\$${widget.produto.price.toStringAsFixed(2)}",
-                  style: kTextsInfo.copyWith(
-                      fontSize: 18, color: Colors.black87, fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
+              ),
+              Text(
+                "R\$${widget.produto.price.toStringAsFixed(2)}",
+                style: kTextsInfo.copyWith(
+                    fontSize: 18, color: Colors.black87, fontWeight: FontWeight.bold),
+              )
+            ],
           )
         ],
       ),

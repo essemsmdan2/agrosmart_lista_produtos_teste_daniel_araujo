@@ -1,4 +1,4 @@
-import 'package:agrosmart_lista_produtos_teste_daniel_araujo/produtos_agrosmart.dart';
+import 'package:agrosmart_lista_produtos_teste_daniel_araujo/repositories/produtos_agrosmart.dart';
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/repositories/firebase_repository.dart';
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/constants.dart';
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/screens/products_details_screen.dart';
