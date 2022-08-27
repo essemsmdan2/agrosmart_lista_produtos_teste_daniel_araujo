@@ -18,9 +18,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
-    /*  //envia somente 1 vez para o banco de dados a biblioteca de produtos da loja
-    FireStorageHandler()
-        .EnviaProdutosParaBancoFirebase(ProdutosAgroSmart.MappedListaProdutos);*/
+    //FireStorageHandler().enviaProdutosParaBancoFirebase();
+
     super.initState();
   }
 
@@ -28,8 +27,8 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Consumer<FireStorageHandler>(
-            builder: (BuildContext context, products, Widget? child) {
+        child:
+            Consumer<FireStorageHandler>(builder: (BuildContext context, products, Widget? child) {
           return products.listaProdutosFirestore.isEmpty
               ? const ListTile(
                   leading: Icon(Icons.remove_shopping_cart_rounded),

@@ -40,8 +40,8 @@ class _ProductCardState extends State<ProductCard> {
             child: Row(
               children: [
                 Container(
-                  width: 130,
-                  height: 130,
+                  width: 150,
+                  height: 150,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(5)),
                     image: DecorationImage(
@@ -58,55 +58,22 @@ class _ProductCardState extends State<ProductCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     SizedBox(
-                      width: 150,
-                      child: Wrap(
-                        runSpacing: 5,
+                      width: 125,
+                      height: 100,
+                      child: ListView(
                         children: [
-                          Material(
-                            shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4.0)),
-                            ),
-                            color: Colors.lightBlueAccent,
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                widget.produto.title,
-                                style: kTextsInfo,
+                          Wrap(
+                            spacing: 5,
+                            runSpacing: 5,
+                            children: [
+                              MyCustomChip(
+                                produtoParametro: widget.produto.title,
                               ),
-                            ),
+                              MyCustomChip(produtoParametro: widget.produto.type),
+                              MyCustomChip(produtoParametro: widget.produto.description),
+                            ],
                           ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Material(
-                            shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4.0)),
-                            ),
-                            color: Colors.lightBlueAccent,
-                            child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                widget.produto.type,
-                                style: kTextsInfo,
-                              ),
-                            ),
-                          )
                         ],
-                      ),
-                    ),
-                    Material(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                      ),
-                      color: Colors.lightBlueAccent,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Text(
-                          "Created Implementar",
-                          style: kTextsInfo,
-                        ),
                       ),
                     ),
                     RatingBar.builder(
@@ -123,7 +90,7 @@ class _ProductCardState extends State<ProductCard> {
                       onRatingUpdate: (rating) {
                         print(rating);
                       },
-                    ),
+                    )
                   ],
                 ),
               ],
@@ -145,16 +112,36 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                 ),
                 Text(
-                  "R\$${widget.produto.price}",
+                  "R\$${widget.produto.price.toStringAsFixed(2)}",
                   style: kTextsInfo.copyWith(
-                      fontSize: 18,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold),
+                      fontSize: 18, color: Colors.black87, fontWeight: FontWeight.bold),
                 )
               ],
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class MyCustomChip extends StatelessWidget {
+  String produtoParametro;
+  MyCustomChip({Key? key, required this.produtoParametro}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+      ),
+      color: Colors.lightBlueAccent,
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Text(
+          produtoParametro,
+          style: kTextsInfo,
+        ),
       ),
     );
   }

@@ -1,3 +1,3 @@
 import 'package:flutter/material.dart';
 
-TextStyle kTextsInfo = TextStyle(fontSize: 12, color: Colors.white);
+TextStyle kTextsInfo = TextStyle(fontSize: 15, color: Colors.white);

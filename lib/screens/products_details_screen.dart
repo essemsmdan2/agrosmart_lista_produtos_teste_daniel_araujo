@@ -1,5 +1,6 @@
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/repositories/firebase_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../models/produto_model.dart';
@@ -39,7 +40,7 @@ class MyCustomForm extends StatefulWidget {
 
 class MyCustomFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
-  RegExp _regExp = RegExp(r'^[0-9]+$');
+
   late String? title;
   late String? type;
   late String? price;
@@ -81,6 +82,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             },
           ),
           TextFormField(
+            keyboardType: TextInputType.number,
             onSaved: (value) => price = value,
             decoration: const InputDecoration(
               border: UnderlineInputBorder(),
@@ -88,33 +90,74 @@ class MyCustomFormState extends State<MyCustomForm> {
             ),
             // The validator receives the text that the user has entered.
             validator: (value) {
-              if (value == null || value.isEmpty || !_regExp.hasMatch(value)) {
+              if (value == null || value.isEmpty) {
                 return 'Please enter some number';
               }
               return null;
             },
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                // Validate returns true if the form is valid, or false otherwise.
-                if (_formKey.currentState!.validate()) {
-                  _formKey.currentState?.save();
-                  Provider.of<FireStorageHandler>(context, listen: false)
-                      .atualizaValorProduto(
-                          widget.produto, title!, type!, price!);
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Validate returns true if the form is valid, or false otherwise.
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState?.save();
+                      Provider.of<FireStorageHandler>(context, listen: false)
+                          .atualizaValorProduto(widget.produto, title!, type!, price!);
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
-                  );
-                }
-              },
-              child: const Text('Submit'),
-            ),
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Processing Data')),
+                      );
+                    }
+                  },
+                  child: const Text('Submit'),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Text("Remove"),
+                              content: Text("Do want delete?"),
+                              actions: [
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Provider.of<FireStorageHandler>(context, listen: false)
+                                          .removeProduto(widget.produto);
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text("Yes")),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text("No")),
+                              ],
+                            ));
+                  },
+                  child: const Text('Delete'),
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
 }
+
+Future openDialog(context) => showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+          title: Text("Accept?"),
+        ));
