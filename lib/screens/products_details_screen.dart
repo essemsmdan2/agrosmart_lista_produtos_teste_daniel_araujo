@@ -109,7 +109,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                           .atualizaValorProduto(widget.produto, title!, type!, price!);
 
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Processing Data')),
+                        const SnackBar(content: Text('Novos Dados Enviados')),
                       );
                     }
                   },
@@ -133,8 +133,13 @@ class MyCustomFormState extends State<MyCustomForm> {
                                     onPressed: () {
                                       Provider.of<FireStorageHandler>(context, listen: false)
                                           .removeProduto(widget.produto);
-                                      Navigator.of(context).pop();
-                                      Navigator.of(context).pop();
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                '"${widget.produto.title}" removido com sucesso.')),
+                                      );
                                     },
                                     child: Text("Yes")),
                                 ElevatedButton(
