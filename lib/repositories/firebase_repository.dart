@@ -56,7 +56,7 @@ class FireStorageHandler extends ChangeNotifier {
   Future<void> enviaProdutosParaBancoFirebase() async {
     List<Produto> listaProdutosAgrosmart = ProdutosAgroSmart.MappedListaProdutos;
     try {
-      for (final produto in listaProdutosAgrosmart) {
+      for (final Produto produto in listaProdutosAgrosmart) {
         _firestorageCollectionAgroSmartProdutos.doc(produto.filename).set(produto.toMap());
       }
     } catch (e) {

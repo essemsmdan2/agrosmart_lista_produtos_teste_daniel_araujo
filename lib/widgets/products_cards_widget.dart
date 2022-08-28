@@ -1,8 +1,12 @@
+import 'dart:ffi';
+
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/screens/products_details_screen.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../constants.dart';
 import '../models/produto_model.dart';
+import '../services/storage_service.dart';
 
 class ProductCard extends StatefulWidget {
   Produto produto;
@@ -25,6 +29,19 @@ class _ProductCardState extends State<ProductCard> {
     );
   }
 
+  Future<Widget> _getImage(BuildContext context, String imageName) async {
+    String imageUrl = await FireStorageService.loadImageReturnUrl(context, imageName);
+
+    return Container(
+        width: MediaQuery.of(context).size.width / 3.1,
+        height: MediaQuery.of(context).size.height / 6.6,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
+          image: DecorationImage(fit: BoxFit.cover, image: NetworkImage(imageUrl)),
+          // image: AssetImage("images/" + widget.produto.filename)),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,14 +56,44 @@ class _ProductCardState extends State<ProductCard> {
           Flexible(
             child: Row(
               children: [
-                Container(
-                  width: 130,
-                  height: 130,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(5)),
-                    image: DecorationImage(
-                        fit: BoxFit.cover, image: AssetImage("images/" + widget.produto.filename)),
-                  ),
+                FutureBuilder(
+                  future: _getImage(context, widget.produto.filename),
+                  builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    List<Widget> children;
+                    if (snapshot.hasData) {
+                      children = [snapshot.data];
+                    } else if (snapshot.hasError) {
+                      children = <Widget>[
+                        const Icon(
+                          Icons.error_outline,
+                          color: Colors.red,
+                          size: 60,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Text('Error: ${snapshot.error}'),
+                        )
+                      ];
+                    } else {
+                      children = const <Widget>[
+                        SizedBox(
+                          width: 60,
+                          height: 60,
+                          child: CircularProgressIndicator(),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 16),
+                          child: Text('Carregando...'),
+                        )
+                      ];
+                    }
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: children,
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(width: 5),
                 SizedBox(
