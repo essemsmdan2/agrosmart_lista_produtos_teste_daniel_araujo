@@ -3,10 +3,12 @@
 
 Teste para Vaga Flutter Developer 
 
-## Instalação 
+## Instalação <br />
 
 Plataforma Android
-O tester deve usar o link a baixo e se cadastrar como tester, logo em seguida clicar no link interno da página, onde será direcionado a página de download do app em versão internal test. \n
+O tester deverá informar o email para que seja adicionado a lista de testers (requisito do Google) <br />
+- logo após usar o link a baixo para aceitar o pedido de tester <br />
+-  ao aceitar o pedido será informado um link para acesso da loja onde poderá baixar o app <br />
 https://play.google.com/apps/internaltest/4700610028575661153
 
 
