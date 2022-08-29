@@ -1,4 +1,4 @@
-import 'package:agrosmart_lista_produtos_teste_daniel_araujo/repositories/firebase_repository.dart';
+import 'package:agrosmart_lista_produtos_teste_daniel_araujo/repositories/firestore_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -105,7 +105,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     // Validate returns true if the form is valid, or false otherwise.
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState?.save();
-                      Provider.of<FireStorageHandler>(context, listen: false)
+                      Provider.of<FirestoreRepository>(context, listen: false)
                           .atualizaValorProduto(widget.produto, title!, type!, price!);
 
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -122,16 +122,18 @@ class MyCustomFormState extends State<MyCustomForm> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
+                  key: Key("deleteButton"),
                   onPressed: () {
                     showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
+                              key: Key("alertDialog"),
                               title: Text("Remove"),
                               content: Text("Do want delete?"),
                               actions: [
                                 ElevatedButton(
                                     onPressed: () {
-                                      Provider.of<FireStorageHandler>(context, listen: false)
+                                      Provider.of<FirestoreRepository>(context, listen: false)
                                           .removeProduto(widget.produto);
                                       Navigator.pop(context);
                                       Navigator.pop(context);

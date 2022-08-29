@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../constants.dart';
 import '../models/produto_model.dart';
-import '../services/storage_service.dart';
+import '../services/firestorage_service.dart';
+import 'image_from_imageprovider.dart';
 
 class ProductCard extends StatefulWidget {
   Produto produto;
@@ -29,17 +30,10 @@ class _ProductCardState extends State<ProductCard> {
     );
   }
 
-  Future<Widget> _getImage(BuildContext context, String imageName) async {
+  Future<Widget> _getImageFromUrl(BuildContext context, String imageName) async {
     String imageUrl = await FireStorageService.loadImageReturnUrl(context, imageName);
 
-    return Container(
-        width: MediaQuery.of(context).size.width / 3.1,
-        height: MediaQuery.of(context).size.height / 6.6,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(5)),
-          image: DecorationImage(fit: BoxFit.cover, image: NetworkImage(imageUrl)),
-          // image: AssetImage("images/" + widget.produto.filename)),
-        ));
+    return imageWidgetFromImageProvider(context, NetworkImage(imageUrl));
   }
 
   @override
@@ -57,7 +51,7 @@ class _ProductCardState extends State<ProductCard> {
             child: Row(
               children: [
                 FutureBuilder(
-                  future: _getImage(context, widget.produto.filename),
+                  future: _getImageFromUrl(context, widget.produto.filename),
                   builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     List<Widget> children;
                     if (snapshot.hasData) {

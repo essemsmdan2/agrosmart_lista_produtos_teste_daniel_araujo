@@ -1,5 +1,6 @@
-import 'package:agrosmart_lista_produtos_teste_daniel_araujo/repositories/firebase_repository.dart';
+import 'package:agrosmart_lista_produtos_teste_daniel_araujo/repositories/firestore_repository.dart';
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/screens/main_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => FireStorageHandler()),
+        ChangeNotifierProvider(create: (_) => FirestoreRepository()),
       ],
       child: const MyApp(),
     ),

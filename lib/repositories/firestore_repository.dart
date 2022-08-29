@@ -1,13 +1,14 @@
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/repositories/produtos_agrosmart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import '../models/produto_model.dart';
 
-class FireStorageHandler extends ChangeNotifier {
+class FirestoreRepository extends ChangeNotifier {
   List<Produto> _listaProdutosFirestore = [];
   List<Produto> get listaProdutosFirestore => _listaProdutosFirestore;
 
-  FireStorageHandler() {
+  FirestoreRepository() {
     _startUpdateProdutosLoja();
   }
 
