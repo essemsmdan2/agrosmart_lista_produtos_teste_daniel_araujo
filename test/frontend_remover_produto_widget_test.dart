@@ -1,9 +1,8 @@
+import 'package:agrosmart_lista_produtos_teste_daniel_araujo/models/produto_model.dart';
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/repositories/produtos_agrosmart.dart';
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/screens/products_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:agrosmart_lista_produtos_teste_daniel_araujo/main.dart';
 
 void main() {
   testWidgets("verifica a remoção do produto", (WidgetTester tester) async {
@@ -14,7 +13,7 @@ void main() {
     //execute the actual test
     await tester.pumpWidget(MaterialApp(
       home: ProductsDetailsScreen(
-        produto: ProdutosAgroSmart.MappedListaProdutos[0],
+        produto: ProdutosAgroSmart.MappedListaProdutosTest[0],
       ),
     ));
     await tester.tap(deleteButton);

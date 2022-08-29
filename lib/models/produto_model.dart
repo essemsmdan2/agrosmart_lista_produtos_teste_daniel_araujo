@@ -44,4 +44,15 @@ class Produto {
         title: map["title"],
         type: map["type"]);
   }
+  factory Produto.fromMapTest(Map<String, dynamic> map) {
+    return Produto(
+        url: "test",
+        filename: map["filename"],
+        created: map["created"],
+        description: map["description"],
+        price: map["price"].toDouble(),
+        rating: map["rating"],
+        title: map["title"],
+        type: map["type"]);
+  }
 }
