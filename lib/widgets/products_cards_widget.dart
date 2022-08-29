@@ -27,13 +27,6 @@ class _ProductCardState extends State<ProductCard> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       height: 150,
