@@ -1,16 +1,15 @@
-# agrosmart_lista_produtos_teste_daniel_araujo
 
-Teste para Vaga Flutter Developer
+# Agrosmart Desafio  Daniel Araújo
 
-## Getting Started
+Teste para Vaga Flutter Developer 
 
-This project is a starting point for a Flutter application.
+## Instalação <br />
 
-A few resources to get you started if this is your first Flutter project:
+Plataforma Android <br />
+- tester deverá informar o email para que seja adicionado a lista de testers (requisito do Google) <br />
+- logo após usar o link a baixo para aceitar o pedido de tester <br />
+- https://play.google.com/apps/internaltest/4700610028575661153  <br />
+-  ao aceitar o pedido será informado um link para acesso da loja onde poderá baixar o app <br />
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
