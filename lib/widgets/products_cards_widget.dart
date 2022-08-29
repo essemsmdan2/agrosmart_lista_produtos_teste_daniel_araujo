@@ -1,13 +1,9 @@
-import 'dart:ffi';
-
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/screens/products_details_screen.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../constants.dart';
 import '../models/produto_model.dart';
-import '../services/firestorage_service.dart';
-import 'image_from_imageprovider.dart';
 
 class ProductCard extends StatefulWidget {
   Produto produto;
@@ -30,10 +26,11 @@ class _ProductCardState extends State<ProductCard> {
     );
   }
 
-  Future<Widget> _getImageFromUrl(BuildContext context, String imageName) async {
-    String imageUrl = await FireStorageService.loadImageReturnUrl(context, imageName);
+  @override
+  void initState() {
+    // TODO: implement initState
 
-    return imageWidgetFromImageProvider(context, NetworkImage(imageUrl));
+    super.initState();
   }
 
   @override
@@ -50,44 +47,11 @@ class _ProductCardState extends State<ProductCard> {
           Flexible(
             child: Row(
               children: [
-                FutureBuilder(
-                  future: _getImageFromUrl(context, widget.produto.filename),
-                  builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    List<Widget> children;
-                    if (snapshot.hasData) {
-                      children = [snapshot.data];
-                    } else if (snapshot.hasError) {
-                      children = <Widget>[
-                        const Icon(
-                          Icons.error_outline,
-                          color: Colors.red,
-                          size: 60,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: Text('Error: ${snapshot.error}'),
-                        )
-                      ];
-                    } else {
-                      children = const <Widget>[
-                        SizedBox(
-                          width: 60,
-                          height: 60,
-                          child: CircularProgressIndicator(),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 16),
-                          child: Text('Carregando...'),
-                        )
-                      ];
-                    }
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: children,
-                      ),
-                    );
-                  },
+                CachedNetworkImage(
+                  imageUrl: widget.produto.url,
+                  width: MediaQuery.of(context).size.width / 3.1,
+                  height: MediaQuery.of(context).size.height / 6.6,
+                  fit: BoxFit.cover,
                 ),
                 SizedBox(width: 5),
                 SizedBox(

@@ -10,9 +10,17 @@ import 'package:provider/provider.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 
 void main() async {
-  setupFirebaseAuthMocks();
+  setupFirebasesAuthMocks();
   setUpAll(() async {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      name: "test",
+      options: FirebaseOptions(
+        apiKey: 'AIzaSyArgmRGfB5kiQT6CunAOmKRVKEsxKmy6YI-G72PVU',
+        projectId: 'flutter-firestore',
+        messagingSenderId: '79601577497',
+        appId: 'test',
+      ),
+    );
   });
 
   testWidgets("verifica a listagem dos produtos", (WidgetTester tester) async {
@@ -21,7 +29,8 @@ void main() async {
     //execute
     await tester.pumpWidget(MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => FirestoreRepository()),
+        ChangeNotifierProvider(
+            create: (_) => FirestoreRepository(firestore: FirebaseFirestore.instance)),
       ],
       child: MaterialApp(
         home: MainScreen(),

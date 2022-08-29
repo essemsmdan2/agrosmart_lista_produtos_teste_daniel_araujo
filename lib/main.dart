@@ -14,7 +14,8 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => FirestoreRepository()),
+        ChangeNotifierProvider(
+            create: (_) => FirestoreRepository(firestore: FirebaseFirestore.instance)),
       ],
       child: const MyApp(),
     ),

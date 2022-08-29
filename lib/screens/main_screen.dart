@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/repositories/firestore_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -15,42 +16,10 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final storageRef = FirebaseStorage.instance.ref();
-
-  void downloadToCacheAllFireStorageImgs() async {
-    final appDocDir = await getApplicationDocumentsDirectory();
-    print(appDocDir.path);
-    print("this one");
-    final filePath = "${appDocDir.path}/images/1.jpg";
-    final file = File(filePath);
-
-    final islandRef = storageRef.child("images/1.jpg");
-    final downloadTask = islandRef.writeToFile(file);
-    downloadTask.snapshotEvents.listen((taskSnapshot) {
-      switch (taskSnapshot.state) {
-        case TaskState.running:
-          print('running');
-          break;
-        case TaskState.paused:
-          // TODO: Handle this case.
-          break;
-        case TaskState.success:
-          print('sucess');
-          break;
-        case TaskState.canceled:
-          // TODO: Handle this case.
-          break;
-        case TaskState.error:
-          print('n deu');
-          break;
-      }
-    });
-  }
-
   @override
   void initState() {
-    //FireStorageHandler().enviaProdutosParaBancoFirebase();
-    downloadToCacheAllFireStorageImgs();
+    //FirestoreRepository(firestore: FirebaseFirestore.instance).enviaProdutosParaBancoFirebase();
+
     super.initState();
   }
 

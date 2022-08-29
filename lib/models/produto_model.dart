@@ -1,12 +1,14 @@
+import 'package:agrosmart_lista_produtos_teste_daniel_araujo/services/firestorage_service.dart';
+
 class Produto {
   String filename;
   String title;
   String description;
-
   String type;
   int rating;
   double price;
   dynamic created;
+  String url;
 
   Produto(
       {required this.filename,
@@ -15,11 +17,13 @@ class Produto {
       required this.price,
       required this.rating,
       required this.title,
-      required this.type});
+      required this.type,
+      required this.url});
 
-  Map<String, dynamic> toMap() {
+  Future<Map<String, dynamic>> toMap() async {
     return {
       "title": title,
+      "url": await FireStorageService.loadRepositoryReturnUrlRepository(filename),
       "created": DateTime.now(),
       "type": type,
       "description": description,
@@ -31,6 +35,7 @@ class Produto {
 
   factory Produto.fromMap(Map<String, dynamic> map) {
     return Produto(
+        url: map["url"],
         filename: map["filename"],
         created: map["created"],
         description: map["description"],

@@ -8,14 +8,14 @@ class FirestoreRepository extends ChangeNotifier {
   List<Produto> _listaProdutosFirestore = [];
   List<Produto> get listaProdutosFirestore => _listaProdutosFirestore;
 
-  FirestoreRepository() {
+  FirestoreRepository({required this.firestore}) {
     _startUpdateProdutosLoja();
   }
 
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore firestore;
 
-  CollectionReference _firestorageCollectionAgroSmartProdutos =
-      FirebaseFirestore.instance.collection('agrosmart_produtos');
+  CollectionReference get _firestorageCollectionAgroSmartProdutos =>
+      firestore.collection('agrosmart_produtos');
 
   _startUpdateProdutosLoja() async {
     _firestorageCollectionAgroSmartProdutos.snapshots().listen((snapshot) {
@@ -58,7 +58,7 @@ class FirestoreRepository extends ChangeNotifier {
     List<Produto> listaProdutosAgrosmart = ProdutosAgroSmart.MappedListaProdutos;
     try {
       for (final Produto produto in listaProdutosAgrosmart) {
-        _firestorageCollectionAgroSmartProdutos.doc(produto.filename).set(produto.toMap());
+        _firestorageCollectionAgroSmartProdutos.doc(produto.filename).set(await produto.toMap());
       }
     } catch (e) {
       print(e);
