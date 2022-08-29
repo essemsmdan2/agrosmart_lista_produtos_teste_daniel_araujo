@@ -1,6 +1,6 @@
 # agrosmart_lista_produtos_teste_daniel_araujo
 
-Testeo para Vaga Flutter Developer 
+Teste para Vaga Flutter Developer 
 
 ## Instalação 
 
