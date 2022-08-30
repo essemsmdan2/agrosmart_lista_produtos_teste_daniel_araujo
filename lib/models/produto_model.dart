@@ -23,8 +23,7 @@ class Produto {
   Future<Map<String, dynamic>> toMap() async {
     return {
       "title": title,
-      "url":
-          await FireStorageService.loadRepositoryReturnUrlRepository(filename),
+      "url": await FireStorageService.loadRepositoryReturnUrlRepository(filename),
       "created": DateTime.now(),
       "type": type,
       "description": description,
