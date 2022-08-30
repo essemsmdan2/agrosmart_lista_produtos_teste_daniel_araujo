@@ -1,5 +1,5 @@
 
-# Agrosmart Desafio  Daniel Araújo
+# Desafio  
 
 Teste para Vaga Flutter Developer 
 
