@@ -1,10 +1,5 @@
-import 'dart:io';
-
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/repositories/firestore_repository.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import '../widgets/products_cards_widget.dart';
 
@@ -27,8 +22,8 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child:
-            Consumer<FirestoreRepository>(builder: (BuildContext context, products, Widget? child) {
+        child: Consumer<FirestoreRepository>(
+            builder: (BuildContext context, products, Widget? child) {
           return products.listaProdutosFirestore.isEmpty
               ? const ListTile(
                   leading: Icon(Icons.remove_shopping_cart_rounded),
@@ -38,7 +33,7 @@ class _MainScreenState extends State<MainScreen> {
                   padding: const EdgeInsets.all(5),
                   itemBuilder: (context, int index) {
                     return ProductCard(
-                      key: Key("productCards"),
+                      key: const Key("productCards"),
                       produto: products.listaProdutosFirestore[index],
                     );
                   },

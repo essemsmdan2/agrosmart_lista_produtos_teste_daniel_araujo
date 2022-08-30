@@ -7,17 +7,17 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   testWidgets("verifica a remoção do produto", (WidgetTester tester) async {
     //find widgets needed
-    final deleteButton = find.byKey(ValueKey("deleteButton"));
-    final alertDialog = find.byKey(ValueKey("alertDialog"));
+    final deleteButton = find.byKey(const ValueKey("deleteButton"));
+    final alertDialog = find.byKey(const ValueKey("alertDialog"));
 
     //execute the actual test
     await tester.pumpWidget(MaterialApp(
       home: ProductsDetailsScreen(
-        produto: ProdutosAgroSmart.MappedListaProdutosTest[0],
+        produto: ProdutosAgroSmart.mappedListaProdutosTest[0],
       ),
     ));
     await tester.tap(deleteButton);
-    await tester.pump(Duration(seconds: 2));
+    await tester.pump(const Duration(seconds: 2));
 //check outputs
     expect(alertDialog, findsOneWidget);
   });

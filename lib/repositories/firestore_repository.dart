@@ -1,11 +1,10 @@
 import 'package:agrosmart_lista_produtos_teste_daniel_araujo/repositories/produtos_agrosmart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import '../models/produto_model.dart';
 
 class FirestoreRepository extends ChangeNotifier {
-  List<Produto> _listaProdutosFirestore = [];
+  final List<Produto> _listaProdutosFirestore = [];
   List<Produto> get listaProdutosFirestore => _listaProdutosFirestore;
 
   FirestoreRepository({required this.firestore}) {
@@ -25,22 +24,24 @@ class FirestoreRepository extends ChangeNotifier {
         if (change.type == DocumentChangeType.added) {
           _listaProdutosFirestore.add(produto);
         } else if (change.type == DocumentChangeType.modified) {
-          int index =
-              _listaProdutosFirestore.indexWhere((element) => element.filename == produto.filename);
+          int index = _listaProdutosFirestore
+              .indexWhere((element) => element.filename == produto.filename);
           if (index < 0) {
             _listaProdutosFirestore.add(produto);
           } else {
             _listaProdutosFirestore[index] = produto;
           }
         } else if (change.type == DocumentChangeType.removed) {
-          _listaProdutosFirestore.removeWhere((element) => element.filename == produto.filename);
+          _listaProdutosFirestore
+              .removeWhere((element) => element.filename == produto.filename);
         }
       }
       notifyListeners();
     });
   }
 
-  atualizaValorProduto(Produto produto, String title, String type, String price) async {
+  atualizaValorProduto(
+      Produto produto, String title, String type, String price) async {
     await _firestorageCollectionAgroSmartProdutos
         .doc(produto.filename)
         .update({"title": title, "type": type, "price": double.parse(price)});
@@ -48,17 +49,22 @@ class FirestoreRepository extends ChangeNotifier {
   }
 
   removeProduto(Produto produto) async {
-    await _firestorageCollectionAgroSmartProdutos.doc(produto.filename).delete();
+    await _firestorageCollectionAgroSmartProdutos
+        .doc(produto.filename)
+        .delete();
     _listaProdutosFirestore.remove(produto);
     notifyListeners();
   }
 
   //usado unicamente para enviar o json do teste para a storage
   Future<void> enviaProdutosParaBancoFirebase() async {
-    List<Produto> listaProdutosAgrosmart = ProdutosAgroSmart.MappedListaProdutos;
+    List<Produto> listaProdutosAgrosmart =
+        ProdutosAgroSmart.mappedListaProdutos;
     try {
       for (final Produto produto in listaProdutosAgrosmart) {
-        _firestorageCollectionAgroSmartProdutos.doc(produto.filename).set(await produto.toMap());
+        _firestorageCollectionAgroSmartProdutos
+            .doc(produto.filename)
+            .set(await produto.toMap());
       }
     } catch (e) {
       print(e);
